@@ -1,0 +1,22 @@
+:root{
+   
+    
+}
+
+
+body{
+    margin: 0;
+    padding: 0;
+    
+}
+
+body{
+   
+    font-family: tahoma;
+}
+
+.container {
+    width: 900px;
+    margin: auto;
+    padding: 20px 0;
+}

@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Datepicker Jalali Plugin Demo</title>
+  <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="datepicker.css">
+</head>
+
+<body>
+  <div class="container" style="margin:150px auto;">
+    <div class="calendar"></div>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="datepicker.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        // async function initializeCalendar() {
+        //   try {
+
+        //     const response = await fetch("./events.json")
+        //     const data = await response.json()
+
+        //   } catch (err) {
+        //     alert("Initialization failed")
+        //   }
+        // }
+        // initializeCalendar()
+        $(".calendar").datepicker({
+          altField: "#calendarSelector",
+          selectedCategories: ["National Holiday"],
+        })
+      })
+    </script>
+
+</body>
+
+</html>
