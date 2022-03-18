@@ -58,6 +58,12 @@
     );
     return renderDatePicker(this, settings.date);
   };
+
+  function parseDate(date) {
+    const parsedDate = date.split("T")[0].split("-");
+    return { year: parseInt(parsedDate[0]), month: parseInt(parsedDate[1]), day: parseInt(parsedDate[2]) };
+  }
+
   function getPersianNumber(number) {
     const persianNumbers = {
       0: "۰",
@@ -89,29 +95,16 @@
   }
   function findIfEvent(_, data) {
     return data.some((event) => {
-      const eventDate = new Date(event.eventDate);
-
-      if (isNaN(eventDate.getTime())) {
-        return false;
-      }
-
-      const eventMonth = eventDate.getUTCMonth() + 1;
-      const eventDay = eventDate.getUTCDate();
-
-      return parseInt(_.month) === eventMonth && parseInt(_.day) === eventDay;
+      const { month, day } = parseDate(event.eventDate);
+      return parseInt(_.month) === month && parseInt(_.day) === day;
     });
   }
   function findMonthEvents(_, data) {
     return data
       .filter((event) => {
-        const eventDate = new Date(event.eventDate);
+        const { month } = parseDate(event.eventDate);
 
-        if (isNaN(eventDate.getTime())) {
-          return false;
-        }
-        const eventMonth = eventDate.getUTCMonth() + 1;
-
-        return parseInt(_.month) === eventMonth;
+        return parseInt(_.month) === month;
       })
       .sort((a, b) => {
         const aDate = new Date(a.eventDate).getTime();
@@ -193,18 +186,18 @@
       case "month":
         renderDays(_);
         $(s.datePickerPlotArea + " " + s.navigator + " .nav-content", _).html(calNames("hf", settings.shMonth - 1));
-        $(s.datePickerPlotArea + " " + s.navigator + " .nav-content-year", _).html(parseInt(settings.shYear) + yearDifference);
+        $(s.datePickerPlotArea + " " + s.navigator + " .nav-content-year", _).html(getPersianNumber(parseInt(settings.shYear) + yearDifference));
         break;
       case "year":
         renderMonth(_);
-        $(s.datePickerPlotArea + " " + s.navigator + " .nav-content-year", _).html(parseInt(settings.shYear) + yearDifference);
+        $(s.datePickerPlotArea + " " + s.navigator + " .nav-content-year", _).html(getPersianNumber(parseInt(settings.shYear) + yearDifference));
         break;
       case "decade":
         settings.startY = parseInt(settings.shYear) - 4;
         settings.endY = parseInt(settings.shYear) + 4;
         renderYear(_);
         $(s.datePickerPlotArea + " " + s.navigator + " .nav-content-year", _).html(
-          parseInt(settings.startY) + yearDifference + "-" + (parseInt(settings.endY) + yearDifference)
+          getPersianNumber(parseInt(settings.startY) + yearDifference) + "-" + getPersianNumber(parseInt(settings.endY) + yearDifference)
         );
         break;
     }
@@ -213,7 +206,7 @@
     $(s.eventList).empty();
     events.forEach((event) => {
       if (!settings.selectedCategories.includes(event.eventCategory)) return;
-      const day = new Date(event.eventDate).getUTCDate();
+      const { day } = parseDate(event.eventDate);
       $.tmplMustache(TEMPLATE.eventItem, {
         ...event,
         eventMonth: calNames("hf", settings.shMonth - 1),
@@ -560,20 +553,8 @@
 
       // Find the clicked event
       const event = settings.selectedMonthEvents.find((val) => val.eventName === dataId);
-      const eventDate = new Date(event.eventDate);
-      const year = eventDate.getUTCFullYear();
-      const month = eventDate.getUTCMonth() + 1;
-      const day = eventDate.getUTCDate();
+      const { year, month, day } = parseDate(event.eventDate);
 
-      // Pass the relevant data to the modal template
-      console.log({
-        ...event,
-        startDate: new Date(year - yearDifference, month, day).toLocaleDateString("en-US"),
-        endDate: new Date(year - yearDifference, month, day + 1).toLocaleDateString("en-US"),
-        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-        eventDay: getPersianNumber(day),
-        eventMonth: calNames("hf", settings.shMonth - 1),
-      });
       $.tmplMustache(TEMPLATE.modal, {
         ...event,
         startDate: new Date(year - yearDifference, month, day).toLocaleDateString("en-US"),
@@ -853,6 +834,7 @@
       "<div class='{{css.yearView}}' ></div>" + //
       "<div class='{{css.toolbox}}' ></div>" + //
       "<div id='calendarSecondarySelector' class='{{css.selectedDate}}' ></div>" + //
+      "<div class='{{css.navigator}}' ></div>" + //
       "</div>",
 
     navigator:
@@ -860,6 +842,7 @@
       `<div class="nav-right arrow-btn"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fit="" preserveAspectRatio="xMidYMid meet"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></div>` +
       "<span class='nav-content-year'>{{contentYear}}</span>" +
       "<span class='nav-content'>{{content}}</span>",
+
     years: "<div class='{{css.tableYears}}'><div data-row='1'></div></div>",
     eachYear: "<div><span class='year {{pick}} {{select}} {{thisYear}}' data-val='{{year}}'>{{yearDisplay}}</span></div>",
     months: "<div class='{{css.tableMonths}}'>" + "<div data-season='1'></div>" + "</div>",

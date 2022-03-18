@@ -17,38 +17,44 @@
 --jalali-modal-color-control;
 --jalali-modal-color-controls;
 */
+.h3sp {font-size:20px;font-family: 'Markazi Text', serif;font-weight: 600;
+    line-height: 10px;}
+.ca{font-size:18px; font-family: 'Markazi Text', serif;}
+.nm{font-size:40px;    font-weight: 900; font-family: 'Markazi Text', serif;}
 
-.ca{font-size:18px;}
-.nm{font-size:40px;}
-
-h3 {font-size:30px; !Important}
+h3 {font-size:20px !important}
 .calendar .event-item .event-date_2 h1{
     margin:  0;  
     line-height: 1.5rem;  
     color: inherit;
+font-family: 'Markazi Text', serif;
+    font-size: 30px;
+
  }
 
 .calendar .event-item .event-date_2{
     text-align: center;
-    padding: .5rem 1rem;
+    padding: 20px;
     background-color:var( --jalali-calendar-color-primary, #a6874d);
     margin:auto;
+        width:100px;
+        font-size:20px;
  }
  
  .calendar .event-item .event-description_2{
-    padding: .5rem 1rem;
+    padding-right:10px;
     justify-self: end;
     flex: 1 1 40%;
     margin-right:auto;
-    color: inherit;
-    background-color:var( --jalali-calendar-color-primary, #000000);
+    color: #666;
+    background-color:#fff;
     display:none;
     }
 
 .calendar {
-    max-width: var( --jalali-calendar-max-width, 900px);
+  
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(9, 1fr);
     grid-template-rows: auto;
     direction: rtl;
 }
@@ -62,26 +68,35 @@ h3 {font-size:30px; !Important}
 }
 .calendar .event-panel ul{
    margin: 0;
-   padding: .5rem 1rem;
+   padding: 0px;
    list-style-type: none;
 }
 
 .calendar .event-panel .event-categories{
     margin: 1rem 0;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+ }
+ .calendar .event-panel .event-categories .event-category{
+    padding: 0px;
  }
  .calendar .event-panel .event-categories label{
     cursor: pointer;
     padding: .5rem 0;
+    font-size: 20px;
+    color: lightgray;
  }
  .calendar .event-panel .event-categories .category-checkbox-input{
     display: none;
  }
  .calendar .event-panel .event-categories .category-checkbox-input[type="checkbox"]:checked + label{
     color: var( --jalali-calendar-color-primary, #a6874d);
-    font-size:21px;
+    font-size:20px;
+    padding-right:9px;
+    font-weight: bold;
+    font-family: 'Markazi Text', serif;
+    
  }
  .calendar .divider{
      width:100%;
@@ -107,28 +122,34 @@ h3 {font-size:30px; !Important}
 .calendar .event-item{
     display: flex;
     align-items: stretch;
-    margin: .5rem 0;
+    margin: 4px;
     color:var( --jalali-calendar-color-primary, #ffffff);
 
 }
 .calendar .event-item .event-date{
     text-align: center;
-    padding: .5rem 1rem;
+    padding: 4px;
     background-color:var( --jalali-calendar-color-primary, #a6874d);
+        width:60px;
+        font-size:16px;
+        font-family: 'Markazi Text', serif;
  }
  .calendar .event-item .event-date h1{
     margin:  0;  
     line-height: 1.5rem;  
+          font-size:25px;
+font-family: 'Markazi Text', serif;
     color: inherit;
  }
  
  .calendar .event-item .event-description{
-    padding: .5rem 1rem;
+    padding-right:10px;
     justify-self: end;
     flex: 1 1 40%;
     margin-right:auto;
-    color: inherit;
-    background-color:var( --jalali-calendar-color-primary, #000000);
+    color: #666;
+    background-color:#fff;
+    font-family: 'Markazi Text', serif;
 }
 .calendar .event-item .event-description > *{
     margin: 0;
@@ -137,10 +158,13 @@ h3 {font-size:30px; !Important}
 
 .calendar .datepicker-jalali {
     position:relative;
-    grid-column: 3 / span 3;
+    grid-column: 3 / span 5;
     background-color: var( --jalali-calendar-background, #FFFFFF);
     border: 0px solid var( --jalali-calendar-border-color, #ccc);
     padding: 2rem;
+}
+.calendar .datepicker-jalali >:last-child .nav-content-year {
+  display: none;
 }
 @media screen and (max-width: 700px) {
     .calendar .datepicker-jalali {
@@ -148,15 +172,19 @@ h3 {font-size:30px; !Important}
     }
   }
 .datepicker-jalali .selected-date{
+direction: initial;
     direction: initial;
-    padding: .5rem 2rem;
-    position: absolute;
+    direction: initial;
+    padding: 0.5rem 2rem;
+    /* position: absolute; */
     bottom: -17px;
-    left:50%;
-    transform: translate(-50%, 0);
-    border: 1px solid var( --jalali-calendar-border-color, #ccc);
-    background-color:  #212121;
-    color:white;
+    /* left: 50%; */
+    /* transform: translate(-50%, 0); */
+    /* border: 2px solid #a6874d; */
+    background-color: black;
+    font-size: 14px;
+    color: white;
+    text-align: center;
 }
 .datepicker-jalali .arrow-btn{
     width: 32px;
@@ -200,6 +228,8 @@ h3 {font-size:30px; !Important}
     padding: .5rem 1rem;
     color: var( --jalali-calendar-today-color, initial);
     background-color: var( --jalali-calendar-today-background, initial);
+        font-family: 'Markazi Text', serif;
+    font-size: 22px;
 }
 .datepicker-jalali .calendar-controls #today:hover{
     background-color: var( --jalali-calendar-today-background-hover, #ccc);
@@ -225,6 +255,8 @@ h3 {font-size:30px; !Important}
     justify-content: center;
     align-content: center;
     align-items: center;
+    font-family: 'Markazi Text', serif;
+    font-size: 1.2em;
 }
 .datepicker-jalali .datepicker-grid-day{
    margin-bottom: 2rem;
@@ -255,7 +287,8 @@ h3 {font-size:30px; !Important}
     text-align: center;
     display: inline-block;
     margin-bottom:0px;
-    font-size: 42px;
+    font-size: 36px;
+    font-family: 'Markazi Text', serif;
     color: var( --jalali-calendar-text-muted, #666666);
 }
 
@@ -293,14 +326,19 @@ h3 {font-size:30px; !Important}
 }
 .datepicker-jalali .datepicker-days .day > div{
     line-height: 1rem;
+    font-size: 1.8em;
+    font-family: 'Markazi Text', serif;
 }
 .datepicker-jalali .datepicker-days .day small{
     white-space: nowrap;
+    font-family: 'Markazi Text', serif;
+    font-size: .8em;
 }
 .datepicker-jalali .datepicker-days .event div{
-   color: #a6874d;
-   font-size: 22px;
+    color: #a6874d;
+    font-size: 1.8em;
     font-weight: bold;
+    font-family: 'Markazi Text', serif;
 }
 .datepicker-jalali .datepicker-days .day:hover , .datepicker-jalali .datepicker-month .month:hover ,.datepicker-jalali .datepicker-years .year:hover{
     background-color: var( --jalali-calendar-color-hower, #d7d7d7);
@@ -354,6 +392,8 @@ h3 {font-size:30px; !Important}
  }
  .calendar .modal-content-description > div{
     padding: 3rem;
+    font-family: 'Markazi Text', serif;
+    font-size: 18px;
  }
  .calendar .modal-content-description > div > div{
     text-align: center;
@@ -414,6 +454,7 @@ h3 {font-size:30px; !Important}
         grid-template-columns: repeat(3, 1fr);
         grid-column: 1 / span 3;
         grid-row: 2;
+        margin-top: 0;
     }
     .calendar .modal-content{
         width: 500px; 
@@ -428,7 +469,10 @@ h3 {font-size:30px; !Important}
   @media screen and (max-width: 500px) {
     .calendar {
         font-size: .7rem;
-        }
+    }
+    .calendar .datepicker-jalali{
+        padding: 0;
+    }
     .datepicker-jalali .datepicker-grid-day {
         margin-bottom: .5rem;
     }
